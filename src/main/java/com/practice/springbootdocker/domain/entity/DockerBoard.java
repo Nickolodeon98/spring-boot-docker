@@ -1,6 +1,7 @@
 package com.practice.springbootdocker.domain.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @AllArgsConstructor
+@Getter
 public class DockerBoard {
 
     @Id
