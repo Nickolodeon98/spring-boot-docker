@@ -1,1 +1,9 @@
-
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc
+    url: mysql://localhost:3306/seunghwan-db
+    username: root
+    password: 1234
+  jpa:
+    show-sql: true
+    ddl-auto: create-drop
