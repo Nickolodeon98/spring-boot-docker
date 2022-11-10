@@ -6,10 +6,7 @@ import com.practice.springbootdocker.repository.DockerBoardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.print.Doc;
 import java.util.List;
@@ -29,6 +26,17 @@ public class DockerBoardController {
     @GetMapping("")
     public String initialPage() {
         return "redirect:/notice/all";
+    }
+
+    @GetMapping("/privacy")
+    public String privacyPage(@RequestParam String name, Model model) {
+        model.addAttribute("name", name);
+        return "dockerboard/privacy";
+    }
+
+    @GetMapping("/terms")
+    public String termsPage() {
+        return "dockerboard/terms";
     }
 
     @GetMapping("/new")
