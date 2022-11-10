@@ -1,0 +1,10 @@
+{{>layouts/header}}
+<form action="/notice/post" method="post">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title"/>
+    <label for="contents">내용</label>
+    <input type="text" id="contents" name="contents"/>
+    <label for="author">작성자</label>
+    <input type="text" id="author" name="author"/>
+</form>
+{{>layouts/footer}}
