@@ -81,4 +81,10 @@ public class DockerBoardController {
             return "error";
         }
     }
+
+    @GetMapping("/{id}/null")
+    public String deleteRecord(@PathVariable Long id) {
+        dockerBoardRepository.deleteById(id);
+        return "redirect:/notice/all";
+    }
 }
