@@ -1,6 +1,6 @@
 {{>layouts/header}}
 {{#record}}
-<div class="card" style="width: 18rem;">
+<div class="card container" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">{{title}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
@@ -10,6 +10,7 @@
     </div>
     <a href="/notice/{{id}}/patch" class="btn btn-primary">Edit</a>
     <a href="/notice/{{id}}/null" class="btn btn-danger">Delete</a>
+    <a href="/notice/{{id}}/feedback" class="btn btn-danger">Add a comment</a>
 </div>
 {{/record}}
 {{>layouts/footer}}
