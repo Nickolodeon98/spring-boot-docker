@@ -69,4 +69,16 @@ public class DockerBoardController {
             return "error";
         }
     }
+
+    @PostMapping("/{id}/change")
+    public String updateRecord(@PathVariable Long id, DockerBoardDto dockerBoardDto, Model model) {
+        Optional<DockerBoard> dockerBoardRecord = dockerBoardRepository.findById(id);
+        if (dockerBoardRecord.isPresent()) {
+            dockerBoardRepository.save(dockerBoardDto.toEntity());
+            return String.format("redirect:/notice/%d", id);
+        } else {
+            model.addAttribute("message", String.format("id %d가 존재하지 않습니다.", id));
+            return "error";
+        }
+    }
 }
