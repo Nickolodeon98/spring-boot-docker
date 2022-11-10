@@ -26,7 +26,7 @@ public class DockerBoardController {
         this.dockerBoardRepository = dockerBoardRepository;
     }
 
-    @PostMapping("")
+    @GetMapping("")
     public String initialPage() {
         return "redirect:/notice/all";
     }
