@@ -1,1 +1,9 @@
-<div>show 페이지입니다.</div>
+{{>layouts/header}}
+{{#record}}
+<div>
+    제목: {{title}}
+    내용: {{contents}}
+    작성자: {{author}}
+</div>
+{{/record}}
+{{>layouts/footer}}
