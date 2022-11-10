@@ -1,9 +1,13 @@
 {{>layouts/header}}
 {{#record}}
-<div>
-    제목: {{title}}
-    내용: {{contents}}
-    작성자: {{author}}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
+        <p class="card-text">{{contents}}</p>
+        <a href="/notice/all" class="card-link">포스트 목록</a>
+        <a href="/notice/new" class="card-link">새 포스트 생성</a>
+    </div>
     <a href="/notice/{{id}}/patch" class="btn btn-primary">Edit</a>
     <a href="/notice/{{id}}/null" class="btn btn-danger">Delete</a>
 </div>
