@@ -26,6 +26,11 @@ public class DockerBoardController {
         this.dockerBoardRepository = dockerBoardRepository;
     }
 
+    @PostMapping("")
+    public String initialPage() {
+        return "redirect:/notice/all";
+    }
+
     @GetMapping("/new")
     public String createNewPostForm() {
         return "dockerboard/new";
