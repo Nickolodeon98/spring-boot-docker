@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +47,7 @@ public class DockerBoardController {
     public String createNewPost(DockerBoardDto dockerBoardDto) {
         log.info("Title:{} Contents:{} Author:{}", dockerBoardDto.getTitle(), dockerBoardDto.getContents(), dockerBoardDto.getAuthor());
         DockerBoard savedDockerBoard = dockerBoardRepository.save(dockerBoardDto.toEntity());
-        return "";
+        return String.format("redirect:/notice/%d", savedDockerBoard.getId());
     }
 
     @GetMapping("/{id}")
