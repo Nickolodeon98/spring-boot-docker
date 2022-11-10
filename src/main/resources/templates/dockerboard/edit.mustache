@@ -1,0 +1,11 @@
+{{>layouts/header}}
+{{#old}}
+<form action="/notice/{{id}}/change" method="post">
+    <input type="hidden" name="id" value="{{id}}">
+    <input type="text" name="title" value="{{title}}">
+    <textarea rows="3" name="contents">{{contents}}</textarea>
+    <input type="text" name="author" value="{{author}}">
+    <button type="submit">수정</button>
+</form>
+{{/old}}
+{{>layouts/footer}}
