@@ -9,4 +9,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+server:
+  servlet:
+    encoding:
+      force-response: true
