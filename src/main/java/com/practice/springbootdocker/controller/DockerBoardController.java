@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,5 +56,17 @@ public class DockerBoardController {
         List<DockerBoard> dockerBoards = dockerBoardRepository.findAll();
         model.addAttribute("records", dockerBoards);
         return "dockerboard/list";
+    }
+
+    @GetMapping("/{id}/patch")
+    public String pageToUpdate(@PathVariable Long id, Model model) {
+        Optional<DockerBoard> optionalDockerBoard = dockerBoardRepository.findById(id);
+        if (optionalDockerBoard.isPresent()) {
+            model.addAttribute("old", optionalDockerBoard.get());
+            return "dockerboard/edit";
+        } else {
+            model.addAttribute("message", String.format("id %d를 찾을 수 없습니다", id));
+            return "error";
+        }
     }
 }
