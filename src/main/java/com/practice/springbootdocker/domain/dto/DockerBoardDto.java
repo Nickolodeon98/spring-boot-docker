@@ -4,8 +4,10 @@ import com.practice.springbootdocker.domain.entity.DockerBoard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
+@Setter
 @Getter
 @NoArgsConstructor
 public class DockerBoardDto {
@@ -13,6 +15,7 @@ public class DockerBoardDto {
     private String title;
     private String contents;
     private String author;
+
     public DockerBoard toEntity() {
         return new DockerBoard(this.id, this.title, this.contents, this.author);
     }
