@@ -135,4 +135,12 @@ public class DockerBoardController {
         return "dockerboard/hospitals";
     }
 
+    @GetMapping("/hospitals/result")
+    public String searchKeyword(String keyword, Model model, @PageableDefault(size = 20, sort="id", direction= Sort.Direction.ASC) Pageable pageable) {
+        model.addAttribute("search",hospitalService.searchHospitalName(keyword, pageable));
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("next", pageable.next());
+        model.addAttribute("previous", pageable.previousOrFirst());
+        return "dockerboard/search";
+    }
 }
