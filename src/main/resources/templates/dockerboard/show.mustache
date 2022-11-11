@@ -11,13 +11,11 @@
     <a href="/notice/{{id}}/patch" class="btn btn-primary">Edit</a>
     <a href="/notice/{{id}}/null" class="btn btn-danger">Delete</a>
 </div>
-
 {{#comments}}
-    <form>
+    <form action="/notice/{{id}}/feedback/none" method="post">
         작성자: {{#author}}{{author}}{{/author}}
-    </form>
-    <form>
         내용: {{#contents}}{{contents}}{{/contents}}
+        <button type="submit" class="btn btn-danger" onclick="location.href='/notice/all'">삭제</button>
     </form>
 {{/comments}}
 {{^comments}}댓글 없음{{/comments}}

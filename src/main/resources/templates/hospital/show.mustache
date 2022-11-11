@@ -8,11 +8,10 @@
         </div>
     </div>
     {{#reviews}}
-        <form>
+        <form action="/notice/hospitals/{{id}}/review/none" method="post">
             작성자: {{#author}}{{author}}{{/author}}
-        </form>
-        <form>
             내용: {{#contents}}{{contents}}{{/contents}}
+            <button type="submit" class="btn btn-danger" onclick="location.href='/notice/hospitals/info'">삭제</button>
         </form>
     {{/reviews}}
     {{^reviews}}리뷰 없음{{/reviews}}
