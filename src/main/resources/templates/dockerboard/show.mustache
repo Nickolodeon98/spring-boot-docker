@@ -11,14 +11,20 @@
     <a href="/notice/{{id}}/patch" class="btn btn-primary">Edit</a>
     <a href="/notice/{{id}}/null" class="btn btn-danger">Delete</a>
 </div>
+
 {{#comments}}
-    <div>작성자: {{#author}}{{author}}{{/author}} 내용: {{#contents}}{{contents}}{{/contents}}</div>
+    <form>
+        작성자: {{#author}}{{author}}{{/author}}
+    </form>
+    <form>
+        내용: {{#contents}}{{contents}}{{/contents}}
+    </form>
 {{/comments}}
 {{^comments}}댓글 없음{{/comments}}
 <form action="/notice/{{id}}/feedback" method="post">
     <input type="hidden" name="id" value="{{id}}"/>
-    <input type="text" name="author"/>
-    <input type="text" name="contents"/>
+    <input type="text" name="author" value="이름을 적어주세요"/>
+    <textarea rows="3" name="contents">비속어 제외하고 적어주세요.</textarea>
     <button type="submit">댓글 달기</button>
 </form>
 {{/record}}
