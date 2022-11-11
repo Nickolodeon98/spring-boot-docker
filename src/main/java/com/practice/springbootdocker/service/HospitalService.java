@@ -40,4 +40,9 @@ public class HospitalService {
         }
         return null;
     }
+
+    @Transactional
+    public Hospital findHospitalFromReview(Integer id) {
+        return hospitalRepository.findByReview_Id(id);
+    }
 }
