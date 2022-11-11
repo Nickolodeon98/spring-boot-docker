@@ -17,8 +17,12 @@
     {{/information}}
     </tbody>
 </table>
-
-<a href="/notice/hospitals/info{{#next}}?page={{page}}{{/next}}">next
-<a href="/notice/hospitals/info{{#previous}}?page={{page}}{{/previous}}">previous
-
+<div>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#next}}?page={{page}}{{/next}}'">
+    next
+    </button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#previous}}?page={{page}}{{/previous}}'">
+    previous
+    </button>
+</div>
 {{>layouts/footer}}
