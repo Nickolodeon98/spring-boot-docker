@@ -15,7 +15,7 @@
     <form action="/notice/{{id}}/feedback/none" method="post">
         작성자: {{#author}}{{author}}{{/author}}
         내용: {{#contents}}{{contents}}{{/contents}}
-        <button type="submit" class="btn btn-danger" onclick="location.href='/notice/all'">삭제</button>
+        <button type="submit" class="btn btn-danger">삭제</button>
     </form>
 {{/comments}}
 {{^comments}}댓글 없음{{/comments}}
