@@ -1,0 +1,26 @@
+{{>layouts/header}}
+{{#single}}
+    <div class="card container" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{hospitalName}}</h5>
+            <p class="card-text">{{roadNameAddress}}</p>
+            <a href="/notice/hospitals/info" class="card-link">포스트 목록</a>
+        </div>
+    </div>
+    {{#reviews}}
+        <form>
+            작성자: {{#author}}{{author}}{{/author}}
+        </form>
+        <form>
+            내용: {{#contents}}{{contents}}{{/contents}}
+        </form>
+    {{/reviews}}
+    {{^reviews}}리뷰 없음{{/reviews}}
+    <form action="/notice/hospitals/{{id}}/review" method="post">
+    <input type="hidden" name="id" value="{{id}}"/>
+    <input type="text" name="author" value="이름을 적어주세요"/>
+    <textarea rows="3" name="contents">비속어 제외하고 적어주세요.</textarea>
+    <button type="submit">리뷰 달기</button>
+    </form>
+{{/single}}
+{{>layouts/footer}}
