@@ -12,17 +12,17 @@
         <tr>
             <th scope="row">{{id}}</th>
             <td>{{hospitalName}}</td>
-            <td>{{fullAddress}}</td>
+            <td>{{roadNameAddress}}</td>
         </tr>
     {{/information}}
     </tbody>
 </table>
 <div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#next}}?page={{page}}{{/next}}'">
-    next
-    </button>
     <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#previous}}?page={{page}}{{/previous}}'">
     previous
+    </button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#next}}?page={{page}}{{/next}}'">
+    next
     </button>
 </div>
 {{>layouts/footer}}
