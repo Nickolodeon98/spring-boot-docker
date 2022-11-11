@@ -1,7 +1,12 @@
 package com.practice.springbootdocker.controller;
 
+import com.practice.springbootdocker.domain.dto.CommentDto;
 import com.practice.springbootdocker.domain.dto.DockerBoardDto;
+import com.practice.springbootdocker.domain.dto.HospitalDto;
+import com.practice.springbootdocker.domain.entity.Comment;
 import com.practice.springbootdocker.domain.entity.DockerBoard;
+import com.practice.springbootdocker.domain.entity.Hospital;
+import com.practice.springbootdocker.repository.CommentRepository;
 import com.practice.springbootdocker.repository.DockerBoardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,9 +22,11 @@ import java.util.Optional;
 public class DockerBoardController {
 
     private final DockerBoardRepository dockerBoardRepository; // DI 해준다.
+    private final CommentRepository commentRepository;
 
-    public DockerBoardController(DockerBoardRepository dockerBoardRepository) {
+    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository) {
         this.dockerBoardRepository = dockerBoardRepository;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping("")
@@ -53,7 +60,6 @@ public class DockerBoardController {
     @GetMapping("/{id}")
     public String selectSingleRecord(@PathVariable Long id, Model model) {
         Optional<DockerBoard> optDockerBoard = dockerBoardRepository.findById(id);
-
         if (optDockerBoard.isPresent()) {
             model.addAttribute("record", optDockerBoard.get());
             return "dockerboard/show";
@@ -99,4 +105,29 @@ public class DockerBoardController {
         dockerBoardRepository.deleteById(id);
         return "redirect:/notice/all";
     }
+
+    @PostMapping("/{id}/feedback")
+    public String commentPage(@PathVariable Long id, CommentDto commentDto, Model model) {
+        log.info("author:{} contents:{}", commentDto.getAuthor(), commentDto.getContents());
+        Optional<DockerBoard> optionalDockerBoard = dockerBoardRepository.findById(id);
+        if (optionalDockerBoard.isPresent()) {
+            Comment comment = commentDto.toEntity(optionalDockerBoard.get());
+            commentRepository.save(comment);
+            log.info("comment:{}", comment.getId());
+            model.addAttribute("comment", comment);
+            return String.format("redirect:/notice/%d", id);
+        } else return "error";
+    }
+
+    @GetMapping("/hospitals")
+    public String hospitalInfoPage() {
+        return "dockerboard/hospitals";
+    }
+
+    @PostMapping("/hospitals")
+    public String pagingHospitalsInfo(@RequestParam Long page, HospitalDto hospitalDto, Model model) {
+//        Optional<Hospital> optHospital =
+        return "redirect:/notice/hospitals";
+    }
+
 }
