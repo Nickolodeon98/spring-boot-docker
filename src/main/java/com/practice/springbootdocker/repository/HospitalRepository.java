@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
     Page<Hospital> findByHospitalNameContaining(String searchKey, Pageable pageable);
+
+    Hospital findByReview_Id(Integer id);
 }

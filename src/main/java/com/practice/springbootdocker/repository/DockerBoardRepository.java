@@ -4,4 +4,5 @@ import com.practice.springbootdocker.domain.entity.DockerBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DockerBoardRepository extends JpaRepository<DockerBoard, Long> {
+    DockerBoard findByComments_Id(Long id);
 }
