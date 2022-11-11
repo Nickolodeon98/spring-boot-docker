@@ -2,14 +2,18 @@ package com.practice.springbootdocker.controller;
 
 import com.practice.springbootdocker.domain.dto.CommentDto;
 import com.practice.springbootdocker.domain.dto.DockerBoardDto;
-import com.practice.springbootdocker.domain.dto.HospitalDto;
 import com.practice.springbootdocker.domain.entity.Comment;
 import com.practice.springbootdocker.domain.entity.DockerBoard;
 import com.practice.springbootdocker.domain.entity.Hospital;
 import com.practice.springbootdocker.repository.CommentRepository;
 import com.practice.springbootdocker.repository.DockerBoardRepository;
 import com.practice.springbootdocker.repository.HospitalRepository;
+import com.practice.springbootdocker.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +28,11 @@ public class DockerBoardController {
 
     private final DockerBoardRepository dockerBoardRepository; // DI 해준다.
     private final CommentRepository commentRepository;
-    private final HospitalRepository hospitalRepository;
-    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository, HospitalRepository hospitalRepository) {
+    private final HospitalService hospitalService;
+    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository, HospitalService hospitalService) {
         this.dockerBoardRepository = dockerBoardRepository;
         this.commentRepository = commentRepository;
-        this.hospitalRepository = hospitalRepository;
+        this.hospitalService = hospitalService;
     }
 
     @GetMapping("")
@@ -122,9 +126,10 @@ public class DockerBoardController {
     }
 
     @GetMapping("/hospitals/info")
-    public String pagingHospitalsInfo(Model model) {
-        List<Hospital> hospitals = hospitalRepository.findAll();
-        model.addAttribute("information", hospitals);
+    public String pagingHospitalsInfo(Model model, @PageableDefault(size = 20, sort="id", direction= Sort.Direction.ASC) Pageable pageable) {
+        model.addAttribute("information",  hospitalService.hospitalPage(pageable));
+        model.addAttribute("previous", pageable.previousOrFirst());
+        model.addAttribute("next", pageable.next());
         return "dockerboard/hospitals";
     }
 
