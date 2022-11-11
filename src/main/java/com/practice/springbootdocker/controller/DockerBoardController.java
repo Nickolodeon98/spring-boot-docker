@@ -8,6 +8,7 @@ import com.practice.springbootdocker.domain.entity.DockerBoard;
 import com.practice.springbootdocker.domain.entity.Hospital;
 import com.practice.springbootdocker.repository.CommentRepository;
 import com.practice.springbootdocker.repository.DockerBoardRepository;
+import com.practice.springbootdocker.repository.HospitalRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,11 @@ public class DockerBoardController {
 
     private final DockerBoardRepository dockerBoardRepository; // DI 해준다.
     private final CommentRepository commentRepository;
-
-    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository) {
+    private final HospitalRepository hospitalRepository;
+    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository, HospitalRepository hospitalRepository) {
         this.dockerBoardRepository = dockerBoardRepository;
         this.commentRepository = commentRepository;
+        this.hospitalRepository = hospitalRepository;
     }
 
     @GetMapping("")
@@ -119,15 +121,11 @@ public class DockerBoardController {
         } else return "error";
     }
 
-    @GetMapping("/hospitals")
-    public String hospitalInfoPage() {
-        return "dockerboard/hospitals";
-    }
-
-    @PostMapping("/hospitals")
-    public String pagingHospitalsInfo(@RequestParam Long page, HospitalDto hospitalDto, Model model) {
-//        Optional<Hospital> optHospital =
-        return "redirect:/notice/hospitals";
+    @GetMapping("/hospitals/info")
+    public String pagingHospitalsInfo(Model model) {
+        List<Hospital> hospitals = hospitalRepository.findAll();
+        model.addAttribute("information", hospitals);
+        return "notice/hospitals";
     }
 
 }
