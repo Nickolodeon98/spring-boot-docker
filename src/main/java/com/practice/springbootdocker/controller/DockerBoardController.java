@@ -2,15 +2,16 @@ package com.practice.springbootdocker.controller;
 
 import com.practice.springbootdocker.domain.dto.CommentDto;
 import com.practice.springbootdocker.domain.dto.DockerBoardDto;
+import com.practice.springbootdocker.domain.dto.ReviewDto;
 import com.practice.springbootdocker.domain.entity.Comment;
 import com.practice.springbootdocker.domain.entity.DockerBoard;
 import com.practice.springbootdocker.domain.entity.Hospital;
+import com.practice.springbootdocker.domain.entity.Review;
 import com.practice.springbootdocker.repository.CommentRepository;
 import com.practice.springbootdocker.repository.DockerBoardRepository;
-import com.practice.springbootdocker.repository.HospitalRepository;
+import com.practice.springbootdocker.repository.ReviewRepository;
 import com.practice.springbootdocker.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -29,10 +30,12 @@ public class DockerBoardController {
     private final DockerBoardRepository dockerBoardRepository; // DI 해준다.
     private final CommentRepository commentRepository;
     private final HospitalService hospitalService;
-    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository, HospitalService hospitalService) {
+    private final ReviewRepository reviewRepository;
+    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository, HospitalService hospitalService, ReviewRepository reviewRepository) {
         this.dockerBoardRepository = dockerBoardRepository;
         this.commentRepository = commentRepository;
         this.hospitalService = hospitalService;
+        this.reviewRepository = reviewRepository;
     }
 
     @GetMapping("")
@@ -122,7 +125,6 @@ public class DockerBoardController {
             Comment comment = commentDto.toEntity(optionalDockerBoard.get());
             commentRepository.save(comment);
             log.info("comment:{}", comment.getId());
-//            model.addAttribute("comment", comment);
             return String.format("redirect:/notice/%d", id);
         } else return "error";
     }
@@ -132,7 +134,7 @@ public class DockerBoardController {
         model.addAttribute("information",  hospitalService.hospitalPage(pageable));
         model.addAttribute("previous", pageable.previousOrFirst());
         model.addAttribute("next", pageable.next());
-        return "dockerboard/hospitals";
+        return "hospital/hospitals";
     }
 
     @GetMapping("/hospitals/result")
@@ -142,5 +144,21 @@ public class DockerBoardController {
         model.addAttribute("next", pageable.next());
         model.addAttribute("previous", pageable.previousOrFirst());
         return "dockerboard/search";
+    }
+
+    @GetMapping("/hospitals/{id}")
+    public String selectSingleHospital(@PathVariable Integer id, Model model) {
+        model.addAttribute("single", hospitalService.selectHospital(id));
+        List<Review> reviews = reviewRepository.findByHospitalToReview_Id(id);
+        model.addAttribute("reviews", reviews);
+        return "hospital/show";
+    }
+
+    @PostMapping("/hospitals/{id}/review")
+    public String addReview(@PathVariable Integer id, ReviewDto reviewDto) {
+        Hospital hospital = hospitalService.selectHospital(id);
+        Review savedReview = reviewRepository.save(reviewDto.toEntity(hospital));
+        log.info("id:{} author:{} contents:{}", savedReview.getId(), savedReview.getAuthor(), savedReview.getContents());
+        return String.format("redirect:/notice/hospitals/%d", id);
     }
 }
