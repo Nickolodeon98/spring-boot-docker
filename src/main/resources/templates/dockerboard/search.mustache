@@ -1,0 +1,28 @@
+{{>layouts/header}}
+    <table class="table">
+        <thead>
+    <tr>
+        <th scope="col">번호</th>
+        <th scope="col">이름</th>
+        <th scope="col">주소</th>
+    </tr>
+    </thead>
+        <tbody>
+        {{#search}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td>{{hospitalName}}</td>
+                <td>{{roadNameAddress}}</td>
+            </tr>
+        {{/search}}
+        </tbody>
+    </table>
+    <div>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/result?keyword={{keyword}}&{{#previous}}page={{page}}{{/previous}}'">
+        previous
+    </button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/result?keyword={{keyword}}&{{#next}}page={{page}}{{/next}}'">
+        next
+    </button>
+    </div>
+{{>layouts/footer}}
