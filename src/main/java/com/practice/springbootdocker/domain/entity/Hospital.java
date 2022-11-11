@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,6 +34,9 @@ public class Hospital {
     private int patientRoomCount;
     private int totalNumberOfBeds;
     private float totalAreaSize;
+
+    @OneToMany(mappedBy = "hospitalToReview")
+    private List<Review> review = new ArrayList<>();
 
     public Hospital(String openServiceName, int openLocalGovernmentCode, String managementNumber, LocalDateTime licenseDate,
                     int businessStatus, int businessStatusCode, String phone, String fullAddress, String roadNameAddress,
