@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HospitalService {
@@ -27,5 +28,16 @@ public class HospitalService {
     @Transactional
     public Page<Hospital> searchHospitalName(String keyword, Pageable pageable) {
         return hospitalRepository.findByHospitalNameContaining(keyword, pageable);
+    }
+
+    @Transactional
+    public Hospital selectHospital(Integer id) {
+        Optional<Hospital> optHospital = hospitalRepository.findById(id);
+        Hospital hospital = null;
+        if (optHospital.isPresent()) {
+            hospital = optHospital.get();
+            return hospital;
+        }
+        return null;
     }
 }
