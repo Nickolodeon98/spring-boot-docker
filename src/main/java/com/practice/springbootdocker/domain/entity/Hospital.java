@@ -1,6 +1,7 @@
 package com.practice.springbootdocker.domain.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Getter
 @Table(name="nation_wide_hospitals")
 public class Hospital {
     @Id

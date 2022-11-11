@@ -125,7 +125,7 @@ public class DockerBoardController {
     public String pagingHospitalsInfo(Model model) {
         List<Hospital> hospitals = hospitalRepository.findAll();
         model.addAttribute("information", hospitals);
-        return "notice/hospitals";
+        return "dockerboard/hospitals";
     }
 
 }
