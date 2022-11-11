@@ -8,7 +8,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+import java.util.List;
+
 @Service
 public class HospitalService {
 
@@ -18,8 +19,13 @@ public class HospitalService {
         this.hospitalRepository = hospitalRepository;
     }
 
+    @Transactional
     public Page<Hospital> hospitalPage(Pageable pageable) {
         Page<Hospital> hospitals = hospitalRepository.findAll(pageable);
         return hospitals;
+    }
+    @Transactional
+    public Page<Hospital> searchHospitalName(String keyword, Pageable pageable) {
+        return hospitalRepository.findByHospitalNameContaining(keyword, pageable);
     }
 }
