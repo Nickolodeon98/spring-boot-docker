@@ -2,19 +2,11 @@ package com.practice.springbootdocker.controller;
 
 import com.practice.springbootdocker.domain.dto.CommentDto;
 import com.practice.springbootdocker.domain.dto.DockerBoardDto;
-import com.practice.springbootdocker.domain.dto.ReviewDto;
 import com.practice.springbootdocker.domain.entity.Comment;
 import com.practice.springbootdocker.domain.entity.DockerBoard;
-import com.practice.springbootdocker.domain.entity.Hospital;
-import com.practice.springbootdocker.domain.entity.Review;
 import com.practice.springbootdocker.repository.CommentRepository;
 import com.practice.springbootdocker.repository.DockerBoardRepository;
-import com.practice.springbootdocker.repository.ReviewRepository;
-import com.practice.springbootdocker.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +21,9 @@ public class DockerBoardController {
 
     private final DockerBoardRepository dockerBoardRepository; // DI 해준다.
     private final CommentRepository commentRepository;
-    private final HospitalService hospitalService;
-    private final ReviewRepository reviewRepository;
-    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository, HospitalService hospitalService, ReviewRepository reviewRepository) {
+    public DockerBoardController(DockerBoardRepository dockerBoardRepository, CommentRepository commentRepository) {
         this.dockerBoardRepository = dockerBoardRepository;
         this.commentRepository = commentRepository;
-        this.hospitalService = hospitalService;
-        this.reviewRepository = reviewRepository;
     }
 
     @GetMapping("")
@@ -129,5 +117,10 @@ public class DockerBoardController {
         } else return "error";
     }
 
-
+    @PostMapping("/{id}/feedback/none")
+    public String deleteComment(@PathVariable Long id) {
+        DockerBoard dockerBoard = dockerBoardRepository.findByComments_Id(id);
+        commentRepository.deleteById(id);
+        return String.format("redirect:/notice/%d", dockerBoard.getId());
+    }
 }

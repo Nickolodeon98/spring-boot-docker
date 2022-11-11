@@ -63,4 +63,12 @@ public class HospitalController {
         log.info("id:{} author:{} contents:{}", savedReview.getId(), savedReview.getAuthor(), savedReview.getContents());
         return String.format("redirect:/notice/hospitals/%d", id);
     }
+
+    @PostMapping("{id}/review/none")
+    public String deleteReview(@PathVariable Integer id) {
+        Hospital hospital = hospitalService.findHospitalFromReview(id);
+        reviewRepository.deleteById(id);
+        return String.format("redirect:/notice/hospitals/%d", hospital.getId());
+    }
+
 }
