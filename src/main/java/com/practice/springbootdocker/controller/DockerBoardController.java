@@ -129,36 +129,5 @@ public class DockerBoardController {
         } else return "error";
     }
 
-    @GetMapping("/hospitals/info")
-    public String pagingHospitalsInfo(Model model, @PageableDefault(size = 20, sort="id", direction= Sort.Direction.ASC) Pageable pageable) {
-        model.addAttribute("information",  hospitalService.hospitalPage(pageable));
-        model.addAttribute("previous", pageable.previousOrFirst());
-        model.addAttribute("next", pageable.next());
-        return "hospital/hospitals";
-    }
 
-    @GetMapping("/hospitals/result")
-    public String searchKeyword(String keyword, Model model, @PageableDefault(size = 20, sort="id", direction= Sort.Direction.ASC) Pageable pageable) {
-        model.addAttribute("search",hospitalService.searchHospitalName(keyword, pageable));
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("next", pageable.next());
-        model.addAttribute("previous", pageable.previousOrFirst());
-        return "dockerboard/search";
-    }
-
-    @GetMapping("/hospitals/{id}")
-    public String selectSingleHospital(@PathVariable Integer id, Model model) {
-        model.addAttribute("single", hospitalService.selectHospital(id));
-        List<Review> reviews = reviewRepository.findByHospitalToReview_Id(id);
-        model.addAttribute("reviews", reviews);
-        return "hospital/show";
-    }
-
-    @PostMapping("/hospitals/{id}/review")
-    public String addReview(@PathVariable Integer id, ReviewDto reviewDto) {
-        Hospital hospital = hospitalService.selectHospital(id);
-        Review savedReview = reviewRepository.save(reviewDto.toEntity(hospital));
-        log.info("id:{} author:{} contents:{}", savedReview.getId(), savedReview.getAuthor(), savedReview.getContents());
-        return String.format("redirect:/notice/hospitals/%d", id);
-    }
 }
