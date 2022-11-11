@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,4 +23,14 @@ public class DockerBoard {
     private String title;
     private String contents;
     private String author;
+
+    public DockerBoard(Long id, String title, String contents, String author) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.author = author;
+    }
+
+    @OneToMany(mappedBy = "postToComment")
+    private List<Comment> comments = new ArrayList<>();
 }

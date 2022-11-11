@@ -66,6 +66,8 @@ public class DockerBoardController {
     @GetMapping("/{id}")
     public String selectSingleRecord(@PathVariable Long id, Model model) {
         Optional<DockerBoard> optDockerBoard = dockerBoardRepository.findById(id);
+        Optional<List<Comment>> comments = Optional.ofNullable(commentRepository.findByPostToComment_Id(id));
+        if (comments.isPresent()) model.addAttribute("comment", comments.get());
         if (optDockerBoard.isPresent()) {
             model.addAttribute("record", optDockerBoard.get());
             return "dockerboard/show";
@@ -120,7 +122,7 @@ public class DockerBoardController {
             Comment comment = commentDto.toEntity(optionalDockerBoard.get());
             commentRepository.save(comment);
             log.info("comment:{}", comment.getId());
-            model.addAttribute("comment", comment);
+//            model.addAttribute("comment", comment);
             return String.format("redirect:/notice/%d", id);
         } else return "error";
     }

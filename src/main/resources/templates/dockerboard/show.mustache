@@ -10,7 +10,16 @@
     </div>
     <a href="/notice/{{id}}/patch" class="btn btn-primary">Edit</a>
     <a href="/notice/{{id}}/null" class="btn btn-danger">Delete</a>
-    <a href="/notice/{{id}}/feedback" class="btn btn-danger">Add a comment</a>
 </div>
+{{#comments}}
+    <div>작성자: {{#author}}{{author}}{{/author}} 내용: {{contents}}</div>
+{{/comments}}
+{{^comments}}댓글 없음{{/comments}}
+<form action="/notice/{{id}}/feedback" method="post">
+    <input type="hidden" name="id" value="{{id}}"/>
+    <input type="text" name="author"/>
+    <input type="text" name="contents"/>
+    <button type="submit">댓글 달기</button>
+</form>
 {{/record}}
 {{>layouts/footer}}
