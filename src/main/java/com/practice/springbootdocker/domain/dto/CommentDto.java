@@ -5,7 +5,6 @@ import com.practice.springbootdocker.domain.entity.Comment;
 import com.practice.springbootdocker.domain.entity.DockerBoard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Getter
