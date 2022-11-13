@@ -1,18 +1,18 @@
 {{>layouts/header}}
-<table class="table">
+<table class="table table-light">
     <thead>
     <tr>
-        <th scope="col">번호</th>
-        <th scope="col">이름</th>
-        <th scope="col">주소</th>
+        <th class="table-dark" scope="col">번호</th>
+        <th class="table-dark" scope="col">이름</th>
+        <th class="table-dark" scope="col">주소</th>
     </tr>
     </thead>
     <tbody>
     {{#information}}
         <tr>
-            <th scope="row">{{id}}</th>
-            <td><a href="/notice/hospitals/{{id}}">{{hospitalName}}</a></td>
-            <td>{{roadNameAddress}}</td>
+            <th class="table-light" scope="row">{{id}}</th>
+            <td class="table-light"><a href="/notice/hospitals/{{id}}">{{hospitalName}}</a></td>
+            <td class="table-light">{{roadNameAddress}}</td>
         </tr>
     {{/information}}
     </tbody>

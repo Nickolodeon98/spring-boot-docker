@@ -1,20 +1,20 @@
 {{>layouts/header}}
-    <table class="table">
+    <table class="table table-primary">
         <thead>
-    <tr>
-        <th scope="col">번호</th>
-        <th scope="col">제목</th>
-        <th scope="col">내용</th>
-        <th scope="col">작성자</th>
-    </tr>
-    </thead>
+            <tr class="table-dark">
+                <th class="table-dark" scope="col">번호</th>
+                <th class="table-dark" scope="col">제목</th>
+                <th class="table-dark" scope="col">내용</th>
+                <th class="table-dark" scope="col">작성자</th>
+            </tr>
+         </thead>
         <tbody>
         {{#records}}
-        <tr>
-            <th scope="row">{{id}}</th>
-            <td><a href="/notice/{{id}}">{{title}}</a></td>
-            <td>{{contents}}</td>
-            <td>{{author}}</td>
+        <tr class = "table-light" >
+            <th class = "table-light" scope="row">{{id}}</th>
+            <td class = "table-light" ><a href="/notice/{{id}}">{{title}}</a></td>
+            <td class = "table-light" >{{contents}}</td>
+            <td class = "table-light" >{{author}}</td>
         </tr>
         {{/records}}
         </tbody>
