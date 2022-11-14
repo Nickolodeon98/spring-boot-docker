@@ -36,12 +36,16 @@ class HospitalRepositoryTest {
         includes.add("보건소");
         includes.add("보건지소");
         includes.add("보건진료소");
-        List<Hospital> hospitals = hospitalRepository.findByBusinessTypeNameIn(includes);
+        String address = "광진구";
+        List<Hospital> hospitals = hospitalRepository.findByBusinessTypeNameInAndRoadNameAddressContaining(includes, address);
 
         for (Hospital hospital : hospitals) {
             String businessTypeName = hospital.getBusinessTypeName();
+            String roadNameAddress = hospital.getRoadNameAddress();
             assertTrue(businessTypeName.equals("보건소")
                     || businessTypeName.equals("보건지소") || businessTypeName.equals("보건진료소"));
+
+            assertTrue(roadNameAddress.contains("광진구"));
         }
     }
 }
