@@ -36,6 +36,23 @@ class HospitalRepositoryTest {
         includes.add("보건소");
         includes.add("보건지소");
         includes.add("보건진료소");
+        List<Hospital> hospitals = hospitalRepository.findByBusinessTypeNameIn(includes);
+
+        for (Hospital hospital : hospitals) {
+            String businessTypeName = hospital.getBusinessTypeName();
+            assertTrue(businessTypeName.equals("보건소")
+                    || businessTypeName.equals("보건지소") || businessTypeName.equals("보건진료소"));
+        }
+    }
+
+    @Test
+    @DisplayName("업태구분명들 중 하나라도 맞는 레코드가 모두 찾아지는지")
+    void findByBusinessTypeNameInAndRoadNameAddress() {
+        System.out.println(System.getProperties());
+        List<String> includes = new ArrayList<>();
+        includes.add("보건소");
+        includes.add("보건지소");
+        includes.add("보건진료소");
         String address = "광진구";
         List<Hospital> hospitals = hospitalRepository.findByBusinessTypeNameInAndRoadNameAddressContaining(includes, address);
 
@@ -46,6 +63,7 @@ class HospitalRepositoryTest {
                     || businessTypeName.equals("보건지소") || businessTypeName.equals("보건진료소"));
 
             assertTrue(roadNameAddress.contains("광진구"));
+            System.out.println(hospital.getHospitalName());
         }
     }
 }

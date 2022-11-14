@@ -12,5 +12,7 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 
     Hospital findByReview_Id(Integer id);
 
+    List<Hospital> findByBusinessTypeNameIn(List<String> businessTypes);
+
     List<Hospital> findByBusinessTypeNameInAndRoadNameAddressContaining(List<String> businessTypes, String address);
 }
