@@ -46,9 +46,8 @@ class HospitalRepositoryTest {
     }
 
     @Test
-    @DisplayName("업태구분명들 중 하나라도 맞는 레코드가 모두 찾아지는지")
+    @DisplayName("업태구분명 중 하나라도 맞으며 도로명주소에 특정 문자열을 포함하는 레코드가 모두 찾아지는지")
     void findByBusinessTypeNameInAndRoadNameAddress() {
-        System.out.println(System.getProperties());
         List<String> includes = new ArrayList<>();
         includes.add("보건소");
         includes.add("보건지소");
@@ -64,6 +63,17 @@ class HospitalRepositoryTest {
 
             assertTrue(roadNameAddress.contains("광진구"));
             System.out.println(hospital.getHospitalName());
+        }
+    }
+
+    @Test
+    @DisplayName("특정 숫자 범위 안의 병상 수를 가지고 있는 모든 병원이 찾아지는지")
+    void findByTotalNumberOfBeds() {
+        List<Hospital> hospitals = hospitalRepository.findByTotalNumberOfBedsBetween(10, 20);
+        for (Hospital hospital : hospitals) {
+            int bedsNum = hospital.getTotalNumberOfBeds();
+            System.out.println(bedsNum);
+            assertTrue(bedsNum >= 10 && bedsNum <= 20);
         }
     }
 }
