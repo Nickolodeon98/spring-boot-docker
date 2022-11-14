@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,5 +26,22 @@ class HospitalRepositoryTest {
             hospital = optionalHospital.get();
             assertEquals(1, hospital.getId());
         } else fail();
+    }
+
+    @Test
+    @DisplayName("업태구분명들 중 하나라도 맞는 레코드가 모두 찾아지는지")
+    void findByBusinessTypeNameIn() {
+        System.out.println(System.getProperties());
+        List<String> includes = new ArrayList<>();
+        includes.add("보건소");
+        includes.add("보건지소");
+        includes.add("보건진료소");
+        List<Hospital> hospitals = hospitalRepository.findByBusinessTypeNameIn(includes);
+
+        for (Hospital hospital : hospitals) {
+            String businessTypeName = hospital.getBusinessTypeName();
+            assertTrue(businessTypeName.equals("보건소")
+                    || businessTypeName.equals("보건지소") || businessTypeName.equals("보건진료소"));
+        }
     }
 }
