@@ -1,5 +1,6 @@
 package com.practice.springbootdocker.domain.entity;
 
+import com.practice.springbootdocker.domain.dto.HospitalResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,5 +58,13 @@ public class Hospital {
         this.patientRoomCount = patientRoomCount;
         this.totalNumberOfBeds = totalNumberOfBeds;
         this.totalAreaSize = totalAreaSize;
+    }
+
+    /* 엔티티의 DTO 화 - 필요한 이유: DB 의 데이터를 화면에 JSON 형태로 전송해주어야 할 경우가 있기 때문
+     * 궁금증: static 사용 이유는? */
+    public static HospitalResponse of(Hospital hospital) {
+        return new HospitalResponse(hospital.getId(), hospital.getRoadNameAddress(), hospital.getHospitalName(),
+                hospital.getPatientRoomCount(), hospital.getTotalNumberOfBeds(), hospital.getBusinessTypeName(),
+                hospital.getTotalAreaSize());
     }
 }
