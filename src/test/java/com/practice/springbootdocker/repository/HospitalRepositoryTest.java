@@ -69,11 +69,22 @@ class HospitalRepositoryTest {
     @Test
     @DisplayName("특정 숫자 범위 안의 병상 수를 가지고 있는 모든 병원이 찾아지는지")
     void findByTotalNumberOfBeds() {
-        List<Hospital> hospitals = hospitalRepository.findByTotalNumberOfBedsBetween(10, 20);
+        List<Hospital> hospitals = hospitalRepository.findByTotalNumberOfBedsBetween(10, 19);
         for (Hospital hospital : hospitals) {
             int bedsNum = hospital.getTotalNumberOfBeds();
             System.out.println(bedsNum);
-            assertTrue(bedsNum >= 10 && bedsNum <= 20);
+            assertTrue(bedsNum >= 10 && bedsNum < 20);
         }
     }
+
+//    @Test
+//    @DisplayName("특정 범위 내 병실 수를 가진 병원들이 병실 수의 내림차순으로 출력되는지")
+//    void findByPatientRoomCount() {
+//        List<Hospital> hospitals = hospitalRepository.findByPatientRoomCountBetweenOrderByDesc(10, 20);
+//        int roomNum = 20;
+//        for (Hospital hospital : hospitals) {
+//            assertTrue(hospital.getPatientRoomCount() < roomNum);
+//            roomNum = hospital.getPatientRoomCount();
+//        }
+//    }
 }
