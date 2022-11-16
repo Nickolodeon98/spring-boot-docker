@@ -2,13 +2,13 @@ package com.practice.springbootdocker.controller;
 
 import com.practice.springbootdocker.domain.dto.DockerBoardResponse;
 import com.practice.springbootdocker.service.DockerBoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/notice")
+@Slf4j
 public class DockerBoardRestController {
     private final DockerBoardService dockerBoardService;
 
@@ -16,13 +16,13 @@ public class DockerBoardRestController {
         this.dockerBoardService = dockerBoardService;
     }
 
-    @RequestMapping(value="/api/vi/notice/rest/{id}", method = RequestMethod.GET)
+    @GetMapping("/rest/{id}")
     public ResponseEntity<DockerBoardResponse> getDockerBoardJson(@PathVariable Long id) {
         DockerBoardResponse dockerBoardResponse = null;
         try {
             dockerBoardResponse = dockerBoardService.getDockerBoard(id);
+            log.info(dockerBoardResponse.getTitle());
         } catch (NullPointerException e) {
-            throw new RuntimeException(e);
         }
         return ResponseEntity.ok().body(dockerBoardResponse); // Json 형태의 응답을 리턴한다.
     }

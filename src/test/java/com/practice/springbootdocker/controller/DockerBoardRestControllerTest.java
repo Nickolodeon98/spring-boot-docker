@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,5 +56,12 @@ class DockerBoardRestControllerTest {
 
         verify(dockerBoardService).getDockerBoard(4L); // 메서드 실행이 있었는지 확인한다.
     }
-
+//    @DisplayName("DB에 명시된 항목을 인서트한다.")
+//    @Test
+//    void add() throws Exception {
+//        mockMvc.perform(post("/api/v1/notice/new")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeAsValues))
+//
+//    }
 }
