@@ -33,22 +33,26 @@ class DockerBoardRestControllerTest {
     @DisplayName("게시판에 저장된 Json 형태의 데이터를 리턴하는지")
     @Test
     void getJsonResponse() throws Exception {
-        Optional<DockerBoard> optionalDockerBoard = dockerBoardService.getDockerBoard(3L);
-        DockerBoardResponse dockerBoardResponse = DockerBoard.of(optionalDockerBoard.get());
-
+        DockerBoardResponse dockerBoardResponse = dockerBoardService.getDockerBoard(4L);
         given(dockerBoardResponse).willReturn(
-                new DockerBoardResponse(3L, "나의 일기", "오늘은 화창했다.", "전승환"));
+                DockerBoardResponse.builder()
+                        .id(4L)
+                        .title("title")
+                        .contents("contents")
+                        .author("nick")
+                        .build());
 
-        String id = "3L";
-        String url = "/api/v1/notice/%d" + id;
+//        int id = 3;
+        String url = "/api/v1/notice/rest/4";
 
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists())
-                .andExpect(jsonPath("$.contents").value("오늘은 화창했다."))
+                .andExpect(jsonPath("$.contents").value("contents"))
                 .andExpect(jsonPath("$.author").exists())
                 .andDo(print());
 
+        verify(dockerBoardService).getDockerBoard(4L); // 메서드 실행이 있었는지 확인한다.
     }
 
 }
