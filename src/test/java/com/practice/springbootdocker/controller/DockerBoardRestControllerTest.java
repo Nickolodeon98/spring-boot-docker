@@ -1,5 +1,8 @@
 package com.practice.springbootdocker.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.springbootdocker.domain.dto.DockerBoardAddRequest;
+import com.practice.springbootdocker.domain.dto.DockerBoardAddResponse;
 import com.practice.springbootdocker.domain.dto.DockerBoardResponse;
 import com.practice.springbootdocker.domain.entity.DockerBoard;
 import com.practice.springbootdocker.service.DockerBoardService;
@@ -14,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,6 +35,7 @@ class DockerBoardRestControllerTest {
 
     @MockBean
     DockerBoardService dockerBoardService;
+
 
     @DisplayName("게시판에 저장된 Json 형태의 데이터를 리턴하는지")
     @Test
@@ -56,12 +61,26 @@ class DockerBoardRestControllerTest {
 
         verify(dockerBoardService).getDockerBoard(4L); // 메서드 실행이 있었는지 확인한다.
     }
-//    @DisplayName("DB에 명시된 항목을 인서트한다.")
-//    @Test
-//    void add() throws Exception {
-//        mockMvc.perform(post("/api/v1/notice/new")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeAsValues))
-//
-//    }
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @DisplayName("DB에 명시된 항목을 인서트한다.")
+    @Test
+    void add() throws Exception {
+        DockerBoardAddRequest dockerBoardAddRequest = new DockerBoardAddRequest("제목입니다.", "내용입니다.", "전승환");
+        given(dockerBoardService.addDockerBoard(dockerBoardAddRequest))
+                .willReturn(new DockerBoardAddResponse(1L, "제목입니다.", "내용입니다.", "전승환"));
+
+        mockMvc.perform(post("/api/v1/notice/new")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(dockerBoardAddRequest)))
+//                .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.contents").exists())
+                .andExpect(jsonPath("$.author").exists())
+                .andDo(print());
+
+        verify(dockerBoardService).addDockerBoard(dockerBoardAddRequest);
+
+    }
 }
