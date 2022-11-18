@@ -6,15 +6,13 @@ import com.practice.springbootdocker.domain.entity.Review;
 import com.practice.springbootdocker.repository.ReviewRepository;
 import com.practice.springbootdocker.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class HospitalController {
         return "hospital/show";
     }
 
-    @PostMapping("{id}/review")
+    @PostMapping("/{id}/review")
     public String addReview(@PathVariable Integer id, ReviewDto reviewDto) {
         Hospital hospital = hospitalService.selectHospital(id);
         Review savedReview = reviewRepository.save(reviewDto.toEntity(hospital));
@@ -64,11 +62,23 @@ public class HospitalController {
         return String.format("redirect:/notice/hospitals/%d", id);
     }
 
-    @PostMapping("{id}/review/none")
+    @PostMapping("/{id}/review/none")
     public String deleteReview(@PathVariable Integer id) {
         Hospital hospital = hospitalService.findHospitalFromReview(id);
         reviewRepository.deleteById(id);
         return String.format("redirect:/notice/hospitals/%d", hospital.getId());
+    }
+
+    @GetMapping("")
+    public String selectHospitalsByRegion(@RequestParam String keyword,
+                                          @PageableDefault(size = 20, sort="id", direction= Sort.Direction.ASC) Pageable pageable,
+                                          Model model) {
+        Page<Hospital> particularHospitals = hospitalService.searchRoadNameAddress(keyword, pageable);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("information", particularHospitals);
+        model.addAttribute("previous", pageable.previousOrFirst());
+        model.addAttribute("next", pageable.next());
+        return "hospital/regions";
     }
 
 }
