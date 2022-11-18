@@ -2,6 +2,7 @@ package com.practice.springbootdocker.domain.entity;
 
 import com.practice.springbootdocker.domain.dto.HospitalResponse;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Getter
 @Table(name="nation_wide_hospitals")
 public class Hospital {
