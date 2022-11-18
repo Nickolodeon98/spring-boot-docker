@@ -11,10 +11,10 @@
         <tbody>
         {{#records}}
         <tr class = "table-light" >
-            <th class = "table-light" scope="row">{{id}}</th>
-            <td class = "table-light" ><a href="/notice/{{id}}">{{title}}</a></td>
-            <td class = "table-light" >{{contents}}</td>
-            <td class = "table-light" >{{author}}</td>
+            <th class = "table-light" scope="row"><a href="/notice/{{id}}">{{id}}</a></th>
+            <td class = "table-light" ><a href="/notice/{{id}}">{{#title}}{{title}}{{/title}}</a></td>
+            <td class = "table-light" >{{#contents}}{{contents}}{{/contents}}</td>
+            <td class = "table-light" >{{#author}}{{author}}{{/author}}</td>
         </tr>
         {{/records}}
         </tbody>
