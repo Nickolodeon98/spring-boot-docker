@@ -29,6 +29,4 @@ public class DockerBoardService {
         DockerBoard savedDockerBoard = dockerBoardRepository.save(dockerBoardAddRequest.toEntity());
         return DockerBoard.addResponseOf(savedDockerBoard);
     }
-
-
 }

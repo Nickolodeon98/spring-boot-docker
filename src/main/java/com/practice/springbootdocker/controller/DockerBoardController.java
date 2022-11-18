@@ -123,4 +123,6 @@ public class DockerBoardController {
         commentRepository.deleteById(id);
         return String.format("redirect:/notice/%d", dockerBoard.getId());
     }
+
+    /* TODO: 모든 로직과 관련한 내용을 서비스로 분리한다. */
 }

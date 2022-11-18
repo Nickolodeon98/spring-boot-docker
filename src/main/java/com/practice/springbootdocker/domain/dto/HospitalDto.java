@@ -29,6 +29,7 @@ public class HospitalDto {
     private int totalNumberOfBeds;
     private float totalAreaSize;
 
+    // DTO 의 엔티티화 - 필요한 이유: 앞단에서 받은 데이터를 엔티티로 바꿔야 DB 활용이 가능하기 때문이다.
     public Hospital toEntity() {
         return new Hospital(openServiceName, openLocalGovernmentCode, managementNumber,
                 licenseDate, businessStatus, businessStatusCode, phone, fullAddress, roadNameAddress, hospitalName,

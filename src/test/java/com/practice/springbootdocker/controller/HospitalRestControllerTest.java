@@ -52,7 +52,7 @@ public class HospitalRestControllerTest {
         String url = String.format("/api/v1/hospital/response/%d", hospitalId);
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.hospitalName").exists())
+                .andExpect(jsonPath("$.hospitalName").exists()) // 달러 사인은 루트를 뜻한다. 여기서는 hospitalResponse.
                 .andExpect(jsonPath("$.hospitalName").value("노소아청소년과의원"))
                 .andDo(print()); // http request 와 response 내용을 출력한다.
 

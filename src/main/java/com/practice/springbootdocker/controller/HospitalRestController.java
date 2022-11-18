@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController // json 형식으로 데이터를 받는 컨트롤러이다.
-@RequestMapping(value="api/v1/hospital")
+@RequestMapping(value="/api/v1/hospital")
 public class HospitalRestController {
     HospitalService hospitalService;
 

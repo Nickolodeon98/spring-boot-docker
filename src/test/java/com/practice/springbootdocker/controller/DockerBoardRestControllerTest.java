@@ -75,7 +75,7 @@ class DockerBoardRestControllerTest {
         mockMvc.perform(post("/api/v1/notice/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(dockerBoardAddRequest)))
-//                .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.title").exists())
                 .andExpect(jsonPath("$.contents").exists())
                 .andExpect(jsonPath("$.author").exists())
                 .andDo(print());

@@ -61,7 +61,7 @@ public class Hospital {
     }
 
     /* 엔티티의 DTO 화 - 필요한 이유: DB 의 데이터를 화면에 JSON 형태로 전송해주어야 할 경우가 있기 때문
-     * 궁금증: static 사용 이유는? */
+     * 궁금증: static 사용 이유는? 가독성을 위함이다. Hospital 객체를 생성해줄 필요 없이 Hospital.of가 가능하기 때문. */
     public static HospitalResponse of(Hospital hospital) {
         return new HospitalResponse(hospital.getId(), hospital.getRoadNameAddress(), hospital.getHospitalName(),
                 hospital.getPatientRoomCount(), hospital.getTotalNumberOfBeds(), hospital.getBusinessTypeName(),
