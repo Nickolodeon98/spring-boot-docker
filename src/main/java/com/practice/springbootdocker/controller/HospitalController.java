@@ -78,7 +78,7 @@ public class HospitalController {
         model.addAttribute("information", particularHospitals);
         model.addAttribute("previous", pageable.previousOrFirst());
         model.addAttribute("next", pageable.next());
-        return "hospital/regions";
+        return "hospital/hospitals";
     }
 
 }
