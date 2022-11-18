@@ -27,6 +27,11 @@ public class HospitalService {
         Page<Hospital> hospitals = hospitalRepository.findAll(pageable);
         return hospitals;
     }
+
+    public Page<Hospital> searchRoadNameAddress(String keyword, Pageable pageable) {
+        return hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
+    }
+
     @Transactional
     public Page<Hospital> searchHospitalName(String keyword, Pageable pageable) {
         return hospitalRepository.findByHospitalNameContaining(keyword, pageable);
