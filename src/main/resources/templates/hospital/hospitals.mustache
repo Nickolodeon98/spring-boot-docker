@@ -1,4 +1,8 @@
 {{>layouts/header}}
+<form class="d-flex" role="search" action="/notice/hospitals" method="get">
+    <input name="keyword" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 <table class="table table-light">
     <thead>
     <tr>
@@ -18,10 +22,11 @@
     </tbody>
 </table>
 <div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#previous}}?page={{page}}{{/previous}}'">
+    <button type="button" class="btn btn-secondary"
+            onclick="location.href='/notice/hospitals{{#keyword}}?keyword={{keyword}}{{#previous}}&page={{page}}{{/previous}}{{/keyword}}{{^keyword}}/info{{#previous}}?page={{page}}{{/previous}}{{/keyword}}'">
     previous
     </button>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals/info{{#next}}?page={{page}}{{/next}}'">
+    <button type="button" class="btn btn-secondary" onclick="location.href='/notice/hospitals{{#keyword}}?keyword={{keyword}}{{#next}}&page={{page}}{{/next}}{{/keyword}}{{^keyword}}/info{{#next}}?page={{page}}{{/next}}{{/keyword}}'">
     next
     </button>
 </div>
